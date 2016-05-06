@@ -1,3 +1,14 @@
-# Shiva-grow: control system for rpi-based hydroponic controller
+# Shiva-grow: rpi-based hydroponic controller
 
-It's a small home-brew project for hydropoinical growing tomatoes and peppers using dutch bucket technique. Hardware part is based on rpi and relay shields.
+It's a small home-brew project for hydropoinical growing tomatoes and peppers using dutch bucket technique.Hardware part is based on rpi and relay shields.
+
+Basic functionality:
+- Plants watering due to schedule (water pump control)
+- Temperature/humidity control
+- Hyperlapse video recording
+- Web-interface for remote control over the growing process
+
+Potentially:
+- Water level control
+- EC control
+
