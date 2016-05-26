@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Помидоры на гидропонике</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -26,29 +26,52 @@
 <div class="container">
 
       <div class="page-header">
-        <h1>Shiva-grow</h1>
-        <p class="lead">Home-brew initiative for eco-friendly hydroponically grown vegetables.</p>
+        <h1>Теплица online</h1>
+        <p class="lead">Система управления процессом гидропонного выращивания овощей</p>
+      </div>
+<h3>Что это</h3>
+<p>Этот сайт является web-интерфейсом контроллера, управляющего процессом выращивания овощей в частной теплице в подмосковье. На этой странице можно в реальном времени наблюдать за состоянием системы, окружающей среды и прогрессом в росте растений. Проект начат в мае 2016 года и продлится до момента сбора урожая.</p>
+
+      <div class="row">
+        <div class="col-md-5">
+          <h4>Состояние системы</h4>
+      	  <table class="table">
+      	  <thead>
+      	  <tr><th>Параметр</th><th>Значение</th></tr>
+      	  </thead>
+      	  <tbody>
+          <tr><td>Посл. измерение</td><td>Сегодня, 13:24</td></tr>
+      	  <tr><td>Темп. воздуха, C</td><td>35 (19/41)</td></tr>
+          <tr><td>Влаж. воздуха, %</td><td>21 (87/21)</td></tr>
+          <tr><td>Темп. раствора, C</td><td>23 (19/27)</td></tr>
+          <tr><td>Реле полива (1)</td><td>Вкл.</td></tr>
+          <tr><td>Реле полива (2)</td><td>Вкл.</td></tr>
+      	  </tbody>
+      	  </table>
+
+          <h4>Состояние реле</h4>
+          <table class="table">
+          <thead>
+          <tr><th>#</th><th>Реле</th><th>Статус</th></tr>
+          </thead>
+          <tbody>
+          <tr><td>1</td><td>Полив (томаты)</td><td>Выкл.</td></tr>
+          <tr><td>1</td><td>Полив (томаты)</td><td>Выкл.</td></tr>
+          <tr><td>1</td><td>Полив (томаты)</td><td>Выкл.</td></tr>
+          <tr><td>Air Temp, C</td><td>35 (19/41)</td></tr>
+          <tr><td>Air Humidity, %</td><td>21 (87/21)</td></tr>
+          <tr><td>Water Temp, C</td><td>23 (19/27)</td></tr>
+          </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <h4>Live-камера</h4>
+          <img src="../static/maxresdefault.jpg" class="img-responsive">
+        </div>
       </div>
 
-      <h3>Three equal columns</h3>
-      <p>Get three equal-width columns <strong>starting at desktops and scaling to large desktops</strong>. On mobile devices, tablets and below, the columns will automatically stack.</p>
       <div class="row">
-        <div class="col-md-3">
-	  <table class="table">
-	  <thead>
-	  <tr><th>Param</th><th>Value</th></tr>
-	  </thead>
-	  <tbody>
-	  <tr><td>Air Temp, C</td><td>35</td></tr>
-	  </tbody>
-	  </table>
-	</div>
-        <div class="col-md-9">PHOTO</div>
-      </div>
-
-      <h3>Three unequal columns</h3>
-      <p>Get three columns <strong>starting at desktops and scaling to large desktops</strong> of various widths. Remember, grid columns should add up to twelve for a single horizontal block. More than that, and columns start stacking no matter the viewport.</p>
-      <div class="row">
+        <h4></h4>
         <div class="col-md-3">.col-md-3</div>
         <div class="col-md-6">.col-md-6</div>
         <div class="col-md-3">.col-md-3</div>
