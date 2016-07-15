@@ -15,7 +15,10 @@ class W1Relay():
         process = Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.stdout.readline().strip()
         status_hex_str = output[-2:]
-        status_int = int(status_hex_str, 16)
+        if len(status_hex_str) == 0:
+            status_int = self.read_status_int()
+        else:
+            status_int = int(status_hex_str, 16)
         return status_int
 
     def write_status_int(self, new_status_int):
@@ -27,7 +30,7 @@ class W1Relay():
     def get_relay_status(self, relay_n):
         status_int = self.read_status_int()
         bit_mask = 1<<relay_n
-        return (status_int & bit_mask != 0)
+        return (status_int & bit_mask == 0)
 
     def on(self, relay_n):
         status_int = self.read_status_int()
@@ -83,9 +86,9 @@ while(True):
     log["water_temp"] = thermometer.read_temp()
     log["old_status"] = relay.read_status_int()
     relay_count = 0
-    for relay in settings["relays"]:
+    for relay_schedule in settings["relays"]:
         relay_on = relay.get_relay_status(relay_count)
-        if hour in relay["on_hours"] and minute <= relay["duration"]:
+        if hour in relay_schedule["on_hours"] and minute <= relay_schedule["duration"]:
             if not relay_on:
                 relay.on(relay_count)
         else:
@@ -95,4 +98,4 @@ while(True):
     log["new_status"] = relay.read_status_int()
     print log
     # logfile.save(log)
-    time.sleep(30)
+    time.sleep(settings["sleep_time"])

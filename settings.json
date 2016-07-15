@@ -6,5 +6,6 @@
 			"duration": 30
 			}
 		],
-	"measure_freq": 5
+	"measure_freq": 5,
+	"sleep_time": 1
 }
