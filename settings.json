@@ -1,0 +1,10 @@
+{
+	"relays": [
+			{
+			"relay_name": "Watering pump",
+			"on_hours": [6,9,11,13,14,15,17,20,23],
+			"duration": 30
+			}
+		],
+	"measure_freq": 5
+}

@@ -1,6 +1,9 @@
 import subprocess
 from subprocess import Popen
 import os
+import json
+from datetime import datetime
+import time
 
 class W1Relay():
     """Class to work with DS2408 1Wire chip through w1_ds2408 block device"""
@@ -18,6 +21,7 @@ class W1Relay():
     def write_status_int(self, new_status_int):
         new_status_hex = hex(new_status_int)[1:]
         cmd = "echo -e \\\\%s | dd of=%s bs=1 count=1" % (new_status_hex, self.w1_path)
+        # /bin/sh doesn't support echo -e, so using /bin/bash for
         Popen(cmd, shell=True, executable='/bin/bash', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     def get_relay_status(self, relay_n):
@@ -50,17 +54,45 @@ class W1Thermometer():
             else:
                 return False
 
+class Settings():
+    """docstring for Settings"""
+    def __init__(self, path):
+        self.path = path
+
+    def get(self):
+        with open(self.path, "r") as fp:
+            file_data = fp.read()
+            settings = json.loads(file_data)
+            return settings
+        return False
+
+    def save(self, obj):
+        file_data = json.dumps(obj)
+        with open(self.path, "w") as fp:
+            fp.write(file_data)
+
 
 relay = W1Relay("29-00000017b145")
-status_int = relay.read_status_int()
-if status_int == 0xff:
-        print "All relays are off"
-        print "Switching Relay 0 ON"
-        relay.on(0)
-elif status_int == 0xfe:
-        print "Relay 0 is on"
-        print "Switching Relay 0 OFF"
-        relay.off(0)
-
 thermometer = W1Thermometer("28-041470c98eff")
-print thermometer.read_temp()
+settings_obj = Settings("settings.json")
+settings = settings_obj.get()
+
+while(True):
+    (hour, minute) = (datetime.now().hour, datetime.now().minute)
+    log = {}
+    log["water_temp"] = thermometer.read_temp()
+    log["old_status"] = relay.read_status_int()
+    relay_count = 0
+    for relay in settings["relays"]:
+        relay_on = relay.get_relay_status(relay_count)
+        if hour in relay["on_hours"] and minute <= relay["duration"]:
+            if not relay_on:
+                relay.on(relay_count)
+        else:
+            if relay_on:
+                relay.off(relay_count)
+        relay_count += 1
+    log["new_status"] = relay.read_status_int()
+    print log
+    # logfile.save(log)
+    time.sleep(30)
