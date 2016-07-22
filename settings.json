@@ -7,5 +7,7 @@
 			}
 		],
 	"measure_freq": 5,
-	"sleep_time": 1
+	"sleep_time": 1,
+	"relay_1w_id": "29-00000017b145",
+	"thermometer_1w_ip": "28-041470c98eff"
 }

@@ -85,17 +85,31 @@ class Settings():
         with open(self.path, "w") as fp:
             fp.write(file_data)
 
+class logger(object):
+    """docstring for logger"""
+    def __init__(self, path):
+        self.path = path
 
-relay = W1Relay("29-00000017b145")
-thermometer = W1Thermometer("28-041470c98eff")
+    def write(log_obj):
+        data = json.dumps(log_obj)
+        with open(self.path, "w") as fp:
+            fp.write(data)
+
+        
+
+
 settings_obj = Settings("settings.json")
 settings = settings_obj.get()
+relay = W1Relay(settings["relay_1w_id"])
+thermometer = W1Thermometer(settings["thermometer_1w_ip"])
+logfile = logger("log.json")
 
 while(True):
-    (hour, minute) = (datetime.now().hour, datetime.now().minute)
+    now = datetime.now()
+    (hour, minute) = (now.hour, now.minute)
     log = {}
+    log["timestamp"] = now.isoformat()
     log["water_temp"] = thermometer.read_temp()
-    log["old_status"] = relay.read_status_int()
     relay_count = 0
     for relay_schedule in settings["relays"]:
         relay_on = relay.get_relay_status(relay_count)
@@ -106,7 +120,6 @@ while(True):
             if relay_on:
                 relay.off(relay_count)
         relay_count += 1
-    log["new_status"] = relay.read_status_int()
-    print log
-    # logfile.save(log)
+    log["relay_status"] = relay.read_status_int()
+    logfile.write(log)
     time.sleep(settings["sleep_time"])
